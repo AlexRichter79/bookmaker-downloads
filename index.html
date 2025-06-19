@@ -10,20 +10,6 @@
   <title>Download Bookmaker Apps - Fast APK & iOS Installs</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js"></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Bookmaker App Downloads",
-    "operatingSystem": "ANDROID, iOS",
-    "applicationCategory": "GameApplication",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "274"
-    }
-  }
-  </script>
   <style>
     :root {
       --bg: #f9f9f9;
@@ -100,9 +86,21 @@
     }
     .android { background: var(--accent); }
     .ios { background: var(--ios); }
+    .platform {
+      margin-top: 15px;
+      padding: 10px 0;
+      border-top: 1px dashed #ccc;
+    }
     .platform .qr img {
       width: 80px;
       margin-top: 10px;
+    }
+    .copy-link {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.9em;
+      color: #888;
+      cursor: pointer;
     }
     .badge {
       position: absolute;
@@ -129,7 +127,6 @@
     <h1 id="heroTitle">Fast & Secure Bookmaker Downloads</h1>
     <p id="heroSub">Select your country & device, then instantly install the app. QR code and copy link supported.</p>
   </div>
-
   <div class="toggles">
     <label>🌗 Dark Mode: <input type="checkbox" id="toggleTheme"></label>
     <label>🌐 Language:
@@ -140,7 +137,6 @@
       </select>
     </label>
   </div>
-
   <div class="filters">
     <label>🌍 Country:
       <select id="countrySelect">
@@ -158,38 +154,35 @@
       </select>
     </label>
   </div>
-
   <div class="grid" id="bookmakerGrid"></div>
-
   <footer>
     Affiliate disclosure: We may receive commissions from bookmaker partners.<br>
     This site is intended for informational and promotional purposes only.
   </footer>
 </div>
-
 <script>
 const translations = {
   en: { title: "Fast & Secure Bookmaker Downloads", sub: "Select your country & device..." },
   ro: { title: "Descărcări rapide pentru case de pariuri", sub: "Selectează țara și dispozitivul..." },
   de: { title: "Schnelle Downloads für Buchmacher-Apps", sub: "Wähle dein Land und Gerät..." }
 };
-
 const bookmakers = [
   { name: "Bet365", logo: "logos/bet365.png", countries: ["UK", "Germany"], android: "downloads/bet365.apk", ios: "downloads/bet365.ipa" },
   { name: "Betano", logo: "logos/betano.png", countries: ["Romania"], android: "downloads/betano.apk", ios: "downloads/betano.ipa" },
-  { name: "1xBet", logo: "logos/1xbet.png", countries: ["Germany", "Romania"], android: "downloads/1xbet.apk", ios: null }
+  { name: "1xBet", logo: "logos/1xbet.png", countries: ["Germany", "Romania"], android: "downloads/1xbet.apk", ios: null },
+  { name: "Coral", logo: "logos/coral.png", countries: ["UK"], android: "downloads/coral.apk", ios: null },
+  { name: "Sky Bet", logo: "logos/skybet.png", countries: ["UK"], android: "downloads/skybet.apk", ios: "downloads/skybet.ipa" },
+  { name: "William Hill", logo: "logos/williamhill.png", countries: ["UK"], android: "downloads/williamhill.apk", ios: "downloads/williamhill.ipa" },
+  { name: "Marathon Bet", logo: "logos/marathonbet.png", countries: ["Germany"], android: "downloads/marathonbet.apk", ios: null }
 ];
-
 function generateQR(link) {
   return `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(link)}`;
 }
-
 function renderBookmakers() {
   const country = document.getElementById('countrySelect').value;
   const device = document.getElementById('deviceSelect').value;
   const grid = document.getElementById('bookmakerGrid');
   grid.innerHTML = '';
-
   bookmakers.forEach(bm => {
     const matchCountry = country === 'all' || bm.countries.includes(country);
     const matchDevice = device === 'all' || (device === 'android' && bm.android) || (device === 'ios' && bm.ios);
@@ -207,7 +200,6 @@ function renderBookmakers() {
             <div class='qr'><img src="${generateQR(bm.android)}" alt="QR Android"></div>
             <span class="copy-link" onclick="navigator.clipboard.writeText('${bm.android}')">📋 Copy Link</span>
           </div>` : ''}
-
           ${bm.ios ? `<div class="platform">
             <a class="btn ios" href="${bm.ios}" download>iOS</a>
             <div class='qr'><img src="${generateQR(bm.ios)}" alt="QR iOS"></div>
@@ -218,21 +210,17 @@ function renderBookmakers() {
     }
   });
 }
-
 document.getElementById('toggleTheme').addEventListener('change', e => {
   document.documentElement.setAttribute('data-theme', e.target.checked ? 'dark' : 'light');
 });
-
 document.getElementById('langSelect').addEventListener('change', e => {
   const lang = e.target.value;
   const t = translations[lang];
   document.getElementById('heroTitle').textContent = t.title;
   document.getElementById('heroSub').textContent = t.sub;
 });
-
 document.getElementById('countrySelect').addEventListener('change', renderBookmakers);
 document.getElementById('deviceSelect').addEventListener('change', renderBookmakers);
-
 document.addEventListener('DOMContentLoaded', () => {
   lottie.loadAnimation({ container: document.getElementById('animationContainer'), renderer: 'svg', loop: true, autoplay: true, path: 'https://assets4.lottiefiles.com/private_files/lf30_q5pk6p1k.json' });
   renderBookmakers();
