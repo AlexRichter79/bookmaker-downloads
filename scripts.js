@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
       lang === 'de' ? 'Land und Gerät wählen, App sofort installieren.' :
       'Select your country & device, then instantly install the app. QR code and copy link supported.';
   });
+window.addEventListener('load', () => {
+  render();
+});
 
   function countdown(minutes) {
     const end = Date.now() + minutes * 60000;
