@@ -1,74 +1,111 @@
 // scripts.js
-const translations = {
-  en: { title: "Fast & Secure Bookmaker Downloads", sub: "Select your country & device..." },
-  ro: { title: "Descărcări rapide pentru case de pariuri", sub: "Selectează țara și dispozitivul..." },
-  de: { title: "Schnelle Downloads für Buchmacher-Apps", sub: "Wähle dein Land und Gerät..." }
-};
-const bookmakers = [
-  { name: "Bet365", logo: "logos/bet365.png", countries: ["UK", "Germany"], android: "downloads/bet365.apk", ios: "downloads/bet365.ipa" },
-  { name: "Betano", logo: "logos/betano.png", countries: ["Romania"], android: "downloads/betano.apk", ios: "downloads/betano.ipa" },
-  { name: "1xBet", logo: "logos/1xbet.png", countries: ["Germany", "Romania"], android: "downloads/1xbet.apk", ios: null },
-  { name: "Coral", logo: "logos/coral.png", countries: ["UK"], android: "downloads/coral.apk", ios: null },
-  { name: "Sky Bet", logo: "logos/skybet.png", countries: ["UK"], android: "downloads/skybet.apk", ios: "downloads/skybet.ipa" },
-  { name: "William Hill", logo: "logos/williamhill.png", countries: ["UK"], android: "downloads/williamhill.apk", ios: "downloads/williamhill.ipa" },
-  { name: "Marathon Bet", logo: "logos/marathonbet.png", countries: ["Germany"], android: "downloads/marathonbet.apk", ios: null }
-];
-function generateQR(link) {
-  return `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(link)}`;
-}
-function toggleQR(qrId) {
-  const el = document.getElementById(qrId);
-  el.classList.toggle('show');
-}
-function renderBookmakers() {
-  const country = document.getElementById('countrySelect').value;
-  const device = document.getElementById('deviceSelect').value;
-  const grid = document.getElementById('bookmakerGrid');
-  grid.innerHTML = '';
-  bookmakers.forEach((bm, index) => {
-    const matchCountry = country === 'all' || bm.countries.includes(country);
-    const matchDevice = device === 'all' || (device === 'android' && bm.android) || (device === 'ios' && bm.ios);
-    if (matchCountry && matchDevice) {
-      const card = document.createElement('div');
-      card.className = 'card';
-      const badge = `<div class="badge">${bm.countries.join(', ')}</div>`;
-      let html = `
-        ${badge}
-        <img class="logo" src="${bm.logo}" alt="${bm.name} logo" />
-        <h2>${bm.name}</h2>
-        <div class="downloads">`;
-      if (bm.android) {
-        html += `<div class="platform">
-          <a class="btn android" href="${bm.android}" download onclick="toggleQR('qr-${index}-android')">Android</a>
-          <div class="qr" id="qr-${index}-android"><img src="${generateQR(bm.android)}" alt="QR Android"></div>
-          <span class="copy-link" onclick="navigator.clipboard.writeText('${bm.android}')">📋 Copy Link</span>
-        </div>`;
-      }
-      if (bm.ios) {
-        html += `<div class="platform">
-          <a class="btn ios" href="${bm.ios}" download onclick="toggleQR('qr-${index}-ios')">iOS</a>
-          <div class="qr" id="qr-${index}-ios"><img src="${generateQR(bm.ios)}" alt="QR iOS"></div>
-          <span class="copy-link" onclick="navigator.clipboard.writeText('${bm.ios}')">📋 Copy Link</span>
-        </div>`;
-      }
-      html += `</div>`;
-      card.innerHTML = html;
-      grid.appendChild(card);
-    }
-  });
-}
-document.getElementById('toggleTheme').addEventListener('change', e => {
-  document.documentElement.setAttribute('data-theme', e.target.checked ? 'dark' : 'light');
-});
-document.getElementById('langSelect').addEventListener('change', e => {
-  const lang = e.target.value;
-  const t = translations[lang];
-  document.getElementById('heroTitle').textContent = t.title;
-  document.getElementById('heroSub').textContent = t.sub;
-});
-document.getElementById('countrySelect').addEventListener('change', renderBookmakers);
-document.getElementById('deviceSelect').addEventListener('change', renderBookmakers);
+
 document.addEventListener('DOMContentLoaded', () => {
-  lottie.loadAnimation({ container: document.getElementById('animationContainer'), renderer: 'svg', loop: true, autoplay: true, path: 'https://assets4.lottiefiles.com/private_files/lf30_q5pk6p1k.json' });
-  renderBookmakers();
+  const countrySelect = document.getElementById('countrySelect');
+  const deviceSelect = document.getElementById('deviceSelect');
+  const toggleTheme = document.getElementById('toggleTheme');
+  const langSelect = document.getElementById('langSelect');
+  const grid = document.getElementById('bookmakerGrid');
+
+  const data = [
+    { name: 'Bet365', country: 'UK', device: 'android', logo: 'logos/bet365.png', android: '#', ios: '#', top: true },
+    { name: 'SkyBet', country: 'UK', device: 'ios', logo: 'logos/skybet.png', android: '#', ios: '#', top: false },
+    { name: 'William Hill', country: 'UK', device: 'android', logo: 'logos/williamhill.png', android: '#', ios: '#', top: false },
+    { name: 'Coral', country: 'UK', device: 'ios', logo: 'logos/coral.png', android: '#', ios: '#', top: false },
+    { name: 'Marathonbet', country: 'Germany', device: 'android', logo: 'logos/marathonbet.png', android: '#', ios: '#', top: false },
+    { name: 'Betano', country: 'Romania', device: 'android', logo: 'logos/betano.png', android: '#', ios: '#', top: true },
+    { name: '1xBet', country: 'Germany', device: 'ios', logo: 'logos/1xbet.png', android: '#', ios: '#', top: true }
+  ];
+
+  function render() {
+    const cVal = countrySelect.value;
+    const dVal = deviceSelect.value;
+    grid.innerHTML = '';
+
+    data.forEach(item => {
+      if ((cVal === 'all' || item.country === cVal) && (dVal === 'all' || item.device === dVal)) {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.setAttribute('data-aos', 'fade-up');
+        div.innerHTML = `
+          ${item.top ? '<div class="ribbon">Top Rated</div>' : ''}
+          <img class="logo" src="${item.logo}" alt="${item.name}" />
+          <h3>${item.name}</h3>
+          <div class="platform">
+            <a class="btn android" href="${item.android}" target="_blank">Android</a>
+            <a class="btn ios" href="${item.ios}" target="_blank">iOS</a>
+            <div class="copy-link" onclick="copyLink('${item.android}')">📋 Copy Link</div>
+            <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(item.android)}" /></div>
+          </div>
+        `;
+        grid.appendChild(div);
+      }
+    });
+  }
+
+  function copyLink(link) {
+    navigator.clipboard.writeText(link).then(() => alert('Link copied to clipboard!'));
+  }
+
+  window.copyLink = copyLink;
+
+  countrySelect.addEventListener('change', render);
+  deviceSelect.addEventListener('change', render);
+
+  toggleTheme.addEventListener('change', () => {
+    document.documentElement.setAttribute('data-theme', toggleTheme.checked ? 'dark' : 'light');
+  });
+
+  langSelect.addEventListener('change', () => {
+    const lang = langSelect.value;
+    document.getElementById('heroTitle').textContent =
+      lang === 'ro' ? 'Descărcări Rapide pentru Case de Pariuri' :
+      lang === 'de' ? 'Schnelle & sichere Buchmacher-Downloads' :
+      'Fast & Secure Bookmaker Downloads';
+
+    document.getElementById('heroSub').textContent =
+      lang === 'ro' ? 'Selectați țara și dispozitivul, apoi instalați aplicația instant.' :
+      lang === 'de' ? 'Land und Gerät wählen, App sofort installieren.' :
+      'Select your country & device, then instantly install the app. QR code and copy link supported.';
+  });
+
+  // Countdown Timer
+  function countdown(minutes) {
+    const end = Date.now() + minutes * 60000;
+    const timerEl = document.createElement('div');
+    timerEl.id = 'countdown';
+    document.querySelector('.container').prepend(timerEl);
+
+    const interval = setInterval(() => {
+      const diff = end - Date.now();
+      if (diff <= 0) {
+        timerEl.textContent = '🔥 Bonus expired';
+        clearInterval(interval);
+        return;
+      }
+      const mins = Math.floor(diff / 60000);
+      const secs = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+      timerEl.textContent = `🔥 Bonus ends in: ${mins}:${secs}`;
+    }, 1000);
+  }
+
+  countdown(30); // 30-minute timer
+
+  // Initialize
+  render();
+
+  // Optional: Auto-select user country
+  fetch('https://ipapi.co/json')
+    .then(res => res.json())
+    .then(data => {
+      const countryName = data.country_name;
+      const match = [...countrySelect.options].find(opt => opt.text === countryName);
+      if (match) {
+        countrySelect.value = match.value;
+        render();
+      }
+    });
+
+  // Animate on scroll support
+  if (window.AOS) AOS.init();
 });
