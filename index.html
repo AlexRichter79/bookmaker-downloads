@@ -23,39 +23,45 @@
       <h1 id="heroTitle">Fast & Secure Bookmaker Downloads</h1>
       <p id="heroSub">Select your country & device, then instantly install the app. QR code and copy link supported.</p>
     </div>
-    <div class="toggles">
-      <label>🌗 Dark Mode: <input type="checkbox" id="toggleTheme"></label>
-      <label>🌐 Language:
-        <select id="langSelect">
-          <option value="en">English</option>
-          <option value="ro">Română</option>
-          <option value="de">Deutsch</option>
-        </select>
-      </label>
-    </div>
-    <div class="filters">
-      <label>🌍 Country:
-        <select id="countrySelect">
-          <option value="all">All</option>
-          <option value="UK">UK</option>
-          <option value="Germany">Germany</option>
-          <option value="Romania">Romania</option>
-        </select>
-      </label>
-      <label>📱 Device:
-        <select id="deviceSelect">
-          <option value="all">All</option>
-          <option value="android">Android</option>
-          <option value="ios">iOS</option>
-        </select>
-      </label>
-    </div>
-    <div class="grid" id="bookmakerGrid"></div>
+
     <div class="install-guide">
       <h2>📥 How to Install</h2>
       <p><strong>Android:</strong> Download the APK and tap to install. Allow "Unknown Sources" when prompted.</p>
       <p><strong>iOS:</strong> Download the IPA file and use tools like AltStore or Cydia Impactor to install. Trust the profile in Settings.</p>
     </div>
+
+    <div class="control-panel">
+      <div class="control-row">
+        <label><span>🌗</span> Dark Mode: <input type="checkbox" id="toggleTheme" /></label>
+        <label><span>🌐</span> Language:
+          <select id="langSelect">
+            <option value="en">English</option>
+            <option value="ro">Română</option>
+            <option value="de">Deutsch</option>
+          </select>
+        </label>
+      </div>
+      <div class="control-row">
+        <label><span>🌍</span> Country:
+          <select id="countrySelect">
+            <option value="all">All</option>
+            <option value="UK">UK</option>
+            <option value="Germany">Germany</option>
+            <option value="Romania">Romania</option>
+          </select>
+        </label>
+        <label><span>📱</span> Device:
+          <select id="deviceSelect">
+            <option value="all">All</option>
+            <option value="android">Android</option>
+            <option value="ios">iOS</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="grid" id="bookmakerGrid"></div>
+
     <footer>
       Affiliate disclosure: We may receive commissions from bookmaker partners.<br>
       This site is intended for informational and promotional purposes only.
