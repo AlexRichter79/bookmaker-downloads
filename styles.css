@@ -1,0 +1,128 @@
+/* styles.css */
+:root {
+  --bg: #f9f9f9;
+  --card-bg: white;
+  --text: #222;
+  --accent: #3ddc84;
+  --ios: #007aff;
+}
+[data-theme="dark"] {
+  --bg: #111;
+  --card-bg: #1c1c1c;
+  --text: #eee;
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+.banner {
+  background: #ffd700;
+  color: #111;
+  text-align: center;
+  padding: 12px;
+  font-weight: bold;
+}
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px;
+}
+.hero {
+  background: linear-gradient(135deg,#101e52,#095d69);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 12px;
+}
+#animationContainer {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+}
+.filters, .toggles {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+select {
+  padding: 10px;
+  font-size: 1em;
+}
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  position: relative;
+}
+.card img.logo {
+  max-width: 120px;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 6px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.android { background: var(--accent); }
+.ios { background: var(--ios); }
+.platform {
+  margin-top: 15px;
+  padding: 10px 0;
+  border-top: 1px dashed #ccc;
+}
+.platform .qr {
+  display: none;
+}
+.platform .qr.show {
+  display: block;
+}
+.platform .qr img {
+  width: 80px;
+  margin-top: 10px;
+}
+.copy-link {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.9em;
+  color: #888;
+  cursor: pointer;
+}
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--accent);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.8em;
+}
+.install-guide {
+  margin-top: 30px;
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #888;
+}
