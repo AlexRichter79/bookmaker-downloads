@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bookmaker App Downloads</title>
+  <style>
+    :root {
+      --bg: #f9f9f9;
+      --card-bg: white;
+      --text: #222;
+      --accent: #3ddc84;
+      --ios: #007aff;
+    }
+    [data-theme="dark"] {
+      --bg: #111;
+      --card-bg: #1c1c1c;
+      --text: #eee;
+    }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+    .container { max-width: 1100px; margin: auto; padding: 30px; }
+    h1 { text-align: center; margin-bottom: 20px; }
+    .theme-toggle { position: absolute; top: 20px; right: 20px; }
+    .filters { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
+    select { padding: 10px; font-size: 1em; border-radius: 6px; border: 1px solid #ccc; }
+    .hero { background: linear-gradient(135deg,#101e52,#095d69); color: white; padding: 40px 20px; text-align: center; border-radius: 12px; margin-bottom: 30px; }
+    .grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 300px; text-align: center; position: relative; transition: transform 0.2s; }
+    .card:hover { transform: translateY(-5px); }
+    .card img.logo { max-width: 120px; margin-bottom: 10px; }
+    .badge { position: absolute; top: 10px; right: 10px; background: var(--accent); color: #fff; padding: 4px 10px; border-radius: 999px; font-size: 0.75em; }
+    .downloads { margin-top: 15px; }
+    .btn { padding: 10px 20px; border: none; border-radius: 6px; margin: 5px; color: white; cursor: pointer; font-weight: bold; }
+    .android { background: var(--accent); }
+    .ios { background: var(--ios); }
+    .qr img { margin-top: 10px; width: 80px; height: 80px; }
+    .copy-link { display: block; margin-top: 6px; font-size: 0.9em; color: #888; cursor: pointer; }
+  </style>
+</head>
+<body>
+<div class="theme-toggle">
+  <label>
+    🌗 Dark Mode: <input type="checkbox" id="toggleTheme">
+  </label>
+</div>
+<div class="container">
+  <div class="hero">
+    <h2>Fast & Secure Bookmaker Downloads</h2>
+    <p>Select your country & device, then instantly install the app. QR code and copy link supported.</p>
+  </div>
+
+  <div class="filters">
+    <label>🌍 Country:
+      <select id="countrySelect">
+        <option value="all">All</option>
+        <option value="UK">UK</option>
+        <option value="Germany">Germany</option>
+        <option value="Romania">Romania</option>
+      </select>
+    </label>
+    <label>📱 Device:
+      <select id="deviceSelect">
+        <option value="all">All</option>
+        <option value="android">Android</option>
+        <option value="ios">iOS</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="grid" id="bookmakerGrid"></div>
+</div>
+
+<script>
+const bookmakers = [
+  { name: "Bet365", logo: "logos/bet365.png", countries: ["UK", "Germany"], android: "downloads/bet365.apk", ios: "downloads/bet365.ipa" },
+  { name: "Coral", logo: "logos/coral.png", countries: ["UK"], android: "downloads/coral.apk", ios: null },
+  { name: "Betano", logo: "logos/betano.png", countries: ["Romania"], android: "downloads/betano.apk", ios: "downloads/betano.ipa" },
+  { name: "1xBet", logo: "logos/1xbet.png", countries: ["Germany", "Romania"], android: "downloads/1xbet.apk", ios: null },
+  { name: "William Hill", logo: "logos/williamhill.png", countries: ["UK"], android: "downloads/williamhill.apk", ios: "downloads/williamhill.ipa" },
+  { name: "Sky Bet", logo: "logos/skybet.png", countries: ["UK"], android: "downloads/skybet.apk", ios: "downloads/skybet.ipa" },
+  { name: "Marathon Bet", logo: "logos/marathonbet.png", countries: ["Germany"], android: "downloads/marathonbet.apk", ios: null }
+];
+
+function generateQR(link) {
+  return `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(link)}`;
+}
+
+function renderBookmakers() {
+  const country = document.getElementById('countrySelect').value;
+  const device = document.getElementById('deviceSelect').value;
+  const grid = document.getElementById('bookmakerGrid');
+  grid.innerHTML = '';
+
+  bookmakers.forEach(bm => {
+    const matchCountry = country === 'all' || bm.countries.includes(country);
+    const matchDevice = device === 'all' || (device === 'android' && bm.android) || (device === 'ios' && bm.ios);
+    if (matchCountry && matchDevice) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const badge = `<div class="badge">${bm.countries.join(', ')}</div>`;
+      card.innerHTML = `
+        ${badge}
+        <img class="logo" src="${bm.logo}" alt="${bm.name} logo" />
+        <h2>${bm.name}</h2>
+        <div class="downloads">
+          ${bm.android ? `<a class="btn android" href="${bm.android}" download>Android</a>
+            <div class='qr'><img src="${generateQR(bm.android)}" alt="QR Android"><span class="copy-link" onclick="navigator.clipboard.writeText('${bm.android}')">📋 Copy Link</span></div>` : ''}
+          ${bm.ios ? `<a class="btn ios" href="${bm.ios}" download>iOS</a>
+            <div class='qr'><img src="${generateQR(bm.ios)}" alt="QR iOS"><span class="copy-link" onclick="navigator.clipboard.writeText('${bm.ios}')">📋 Copy Link</span></div>` : ''}
+        </div>
+      `;
+      grid.appendChild(card);
+    }
+  });
+}
+
+// Dark mode toggle
+const toggle = document.getElementById('toggleTheme');
+toggle.addEventListener('change', () => {
+  document.documentElement.setAttribute('data-theme', toggle.checked ? 'dark' : 'light');
+});
+
+// Filters
+['countrySelect', 'deviceSelect'].forEach(id => {
+  document.getElementById(id).addEventListener('change', renderBookmakers);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderBookmakers();
+});
+</script>
+</body>
+</html>
