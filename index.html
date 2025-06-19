@@ -18,29 +18,122 @@
       --text: #eee;
     }
     body {
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', sans-serif;
       background: var(--bg);
       color: var(--text);
       transition: background 0.3s, color 0.3s;
     }
-    .container { max-width: 1100px; margin: auto; padding: 30px; }
-    h1 { text-align: center; margin-bottom: 20px; }
-    .theme-toggle { position: absolute; top: 20px; right: 20px; }
-    .filters { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 20px 0; }
-    select { padding: 10px; font-size: 1em; border-radius: 6px; border: 1px solid #ccc; }
-    .hero { background: linear-gradient(135deg,#101e52,#095d69); color: white; padding: 40px 20px; text-align: center; border-radius: 12px; margin-bottom: 30px; }
-    .grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-    .card { background: var(--card-bg); border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 300px; text-align: center; position: relative; transition: transform 0.2s; }
-    .card:hover { transform: translateY(-5px); }
-    .card img.logo { max-width: 120px; margin-bottom: 10px; }
-    .badge { position: absolute; top: 10px; right: 10px; background: var(--accent); color: #fff; padding: 4px 10px; border-radius: 999px; font-size: 0.75em; }
-    .downloads { margin-top: 15px; }
-    .btn { padding: 10px 20px; border: none; border-radius: 6px; margin: 5px; color: white; cursor: pointer; font-weight: bold; }
-    .android { background: var(--accent); }
-    .ios { background: var(--ios); }
-    .qr img { margin-top: 10px; width: 80px; height: 80px; }
-    .copy-link { display: block; margin-top: 6px; font-size: 0.9em; color: #888; cursor: pointer; }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+    select {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .hero {
+      background: linear-gradient(135deg,#101e52,#095d69);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img.logo {
+      max-width: 120px;
+      margin-bottom: 10px;
+    }
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--accent);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75em;
+    }
+    .downloads {
+      margin-top: 15px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      margin: 5px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .android {
+      background: var(--accent);
+    }
+    .ios {
+      background: var(--ios);
+    }
+    .qr img {
+      margin-top: 10px;
+      width: 80px;
+      height: 80px;
+    }
+    .copy-link {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.9em;
+      color: #888;
+      cursor: pointer;
+    }
+    .platform {
+      margin-top: 15px;
+      padding: 10px 0;
+      border-top: 1px dashed #ccc;
+    }
+    .platform:first-child {
+      border-top: none;
+    }
+    .platform .qr img {
+      margin: 10px auto 5px;
+    }
   </style>
 </head>
 <body>
@@ -49,6 +142,7 @@
     🌗 Dark Mode: <input type="checkbox" id="toggleTheme">
   </label>
 </div>
+
 <div class="container">
   <div class="hero">
     <h2>Fast & Secure Bookmaker Downloads</h2>
@@ -109,10 +203,19 @@ function renderBookmakers() {
         <img class="logo" src="${bm.logo}" alt="${bm.name} logo" />
         <h2>${bm.name}</h2>
         <div class="downloads">
-          ${bm.android ? `<a class="btn android" href="${bm.android}" download>Android</a>
-            <div class='qr'><img src="${generateQR(bm.android)}" alt="QR Android"><span class="copy-link" onclick="navigator.clipboard.writeText('${bm.android}')">📋 Copy Link</span></div>` : ''}
-          ${bm.ios ? `<a class="btn ios" href="${bm.ios}" download>iOS</a>
-            <div class='qr'><img src="${generateQR(bm.ios)}" alt="QR iOS"><span class="copy-link" onclick="navigator.clipboard.writeText('${bm.ios}')">📋 Copy Link</span></div>` : ''}
+          ${bm.android ? `
+            <div class="platform">
+              <a class="btn android" href="${bm.android}" download>Android</a>
+              <div class='qr'><img src="${generateQR(bm.android)}" alt="QR Android"></div>
+              <span class="copy-link" onclick="navigator.clipboard.writeText('${bm.android}')">📋 Copy Link</span>
+            </div>` : ''}
+
+          ${bm.ios ? `
+            <div class="platform">
+              <a class="btn ios" href="${bm.ios}" download>iOS</a>
+              <div class='qr'><img src="${generateQR(bm.ios)}" alt="QR iOS"></div>
+              <span class="copy-link" onclick="navigator.clipboard.writeText('${bm.ios}')">📋 Copy Link</span>
+            </div>` : ''}
         </div>
       `;
       grid.appendChild(card);
@@ -121,9 +224,8 @@ function renderBookmakers() {
 }
 
 // Dark mode toggle
-const toggle = document.getElementById('toggleTheme');
-toggle.addEventListener('change', () => {
-  document.documentElement.setAttribute('data-theme', toggle.checked ? 'dark' : 'light');
+document.getElementById('toggleTheme').addEventListener('change', (e) => {
+  document.documentElement.setAttribute('data-theme', e.target.checked ? 'dark' : 'light');
 });
 
 // Filters
@@ -131,9 +233,7 @@ toggle.addEventListener('change', () => {
   document.getElementById(id).addEventListener('change', renderBookmakers);
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderBookmakers();
-});
+document.addEventListener('DOMContentLoaded', renderBookmakers);
 </script>
 </body>
 </html>
