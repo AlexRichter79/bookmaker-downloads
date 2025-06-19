@@ -46,7 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function copyLink(link) {
     navigator.clipboard.writeText(link).then(() => alert('Link copied to clipboard!'));
   }
-
+  
+function toggleQR(element) {
+  const qr = element.nextElementSibling;
+  if (qr && qr.classList.contains('qr')) {
+    qr.classList.toggle('show');
+  }
+}
   window.copyLink = copyLink;
 
   countrySelect.addEventListener('change', render);
