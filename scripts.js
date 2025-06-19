@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <img class="logo" src="${item.logo}" alt="${item.name}" />
           <h3>${item.name}</h3>
           <div class="platform">
-            <a class="btn android" href="${item.android}" target="_blank">Android</a>
-            <a class="btn ios" href="${item.ios}" target="_blank">iOS</a>
+              <a class="btn android" href="${item.android}" target="_blank" onclick="toggleQR(this)">Android</a>
+              <a class="btn ios" href="${item.ios}" target="_blank">iOS</a>
             <div class="copy-link" onclick="copyLink('${item.android}')">📋 Copy Link</div>
             <div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(item.android)}" /></div>
           </div>
