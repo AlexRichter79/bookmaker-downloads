@@ -29,6 +29,13 @@
       background: var(--bg);
       color: var(--text);
     }
+    .banner {
+      background: #ffd700;
+      color: #111;
+      text-align: center;
+      padding: 12px;
+      font-weight: bold;
+    }
     .container {
       max-width: 1100px;
       margin: auto;
@@ -91,6 +98,12 @@
       padding: 10px 0;
       border-top: 1px dashed #ccc;
     }
+    .platform .qr {
+      display: none;
+    }
+    .platform .qr.show {
+      display: block;
+    }
     .platform .qr img {
       width: 80px;
       margin-top: 10px;
@@ -112,6 +125,13 @@
       border-radius: 999px;
       font-size: 0.8em;
     }
+    .install-guide {
+      margin-top: 30px;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
     footer {
       margin-top: 40px;
       text-align: center;
@@ -121,6 +141,7 @@
   </style>
 </head>
 <body>
+<div class="banner">🎁 Limited Time Bonus Offers Available! Download your app now and claim up to 100% in free bets.</div>
 <div class="container">
   <div class="hero">
     <div id="animationContainer"></div>
@@ -155,6 +176,11 @@
     </label>
   </div>
   <div class="grid" id="bookmakerGrid"></div>
+  <div class="install-guide">
+    <h2>📥 How to Install</h2>
+    <p><strong>Android:</strong> Download the APK and tap to install. Allow "Unknown Sources" when prompted.</p>
+    <p><strong>iOS:</strong> Download the IPA file and use tools like AltStore or Cydia Impactor to install. Trust the profile in Settings.</p>
+  </div>
   <footer>
     Affiliate disclosure: We may receive commissions from bookmaker partners.<br>
     This site is intended for informational and promotional purposes only.
@@ -178,34 +204,43 @@ const bookmakers = [
 function generateQR(link) {
   return `https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(link)}`;
 }
+function toggleQR(qrId) {
+  const el = document.getElementById(qrId);
+  el.classList.toggle('show');
+}
 function renderBookmakers() {
   const country = document.getElementById('countrySelect').value;
   const device = document.getElementById('deviceSelect').value;
   const grid = document.getElementById('bookmakerGrid');
   grid.innerHTML = '';
-  bookmakers.forEach(bm => {
+  bookmakers.forEach((bm, index) => {
     const matchCountry = country === 'all' || bm.countries.includes(country);
     const matchDevice = device === 'all' || (device === 'android' && bm.android) || (device === 'ios' && bm.ios);
     if (matchCountry && matchDevice) {
       const card = document.createElement('div');
       card.className = 'card';
       const badge = `<div class="badge">${bm.countries.join(', ')}</div>`;
-      card.innerHTML = `
+      let html = `
         ${badge}
         <img class="logo" src="${bm.logo}" alt="${bm.name} logo" />
         <h2>${bm.name}</h2>
-        <div class="downloads">
-          ${bm.android ? `<div class="platform">
-            <a class="btn android" href="${bm.android}" download>Android</a>
-            <div class='qr'><img src="${generateQR(bm.android)}" alt="QR Android"></div>
-            <span class="copy-link" onclick="navigator.clipboard.writeText('${bm.android}')">📋 Copy Link</span>
-          </div>` : ''}
-          ${bm.ios ? `<div class="platform">
-            <a class="btn ios" href="${bm.ios}" download>iOS</a>
-            <div class='qr'><img src="${generateQR(bm.ios)}" alt="QR iOS"></div>
-            <span class="copy-link" onclick="navigator.clipboard.writeText('${bm.ios}')">📋 Copy Link</span>
-          </div>` : ''}
+        <div class="downloads">`;
+      if (bm.android) {
+        html += `<div class="platform">
+          <a class="btn android" href="${bm.android}" download onclick="toggleQR('qr-${index}-android')">Android</a>
+          <div class="qr" id="qr-${index}-android"><img src="${generateQR(bm.android)}" alt="QR Android"></div>
+          <span class="copy-link" onclick="navigator.clipboard.writeText('${bm.android}')">📋 Copy Link</span>
         </div>`;
+      }
+      if (bm.ios) {
+        html += `<div class="platform">
+          <a class="btn ios" href="${bm.ios}" download onclick="toggleQR('qr-${index}-ios')">iOS</a>
+          <div class="qr" id="qr-${index}-ios"><img src="${generateQR(bm.ios)}" alt="QR iOS"></div>
+          <span class="copy-link" onclick="navigator.clipboard.writeText('${bm.ios}')">📋 Copy Link</span>
+        </div>`;
+      }
+      html += `</div>`;
+      card.innerHTML = html;
       grid.appendChild(card);
     }
   });
