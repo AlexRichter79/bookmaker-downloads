@@ -1,12 +1,10 @@
 // scripts.js
 
 document.addEventListener('DOMContentLoaded', () => {
-  const countrySelect = document.getElementById('countrySelect');
-  const deviceSelect = document.getElementById('deviceSelect');
   const toggleTheme = document.getElementById('toggleTheme');
   const langSelect = document.getElementById('langSelect');
-  const grid = document.getElementById('bookmakerGrid');
 
+<<<<<<< HEAD
   const data = [
     { name: 'Bet365', country: 'UK', device: 'android', logo: 'logos/bet365.png', android: '#', ios: '#', top: true },
     { name: 'SkyBet', country: 'UK', device: 'ios', logo: 'logos/skybet.png', android: '#', ios: '#', top: false },
@@ -57,25 +55,36 @@ function toggleQR(element) {
 
   countrySelect.addEventListener('change', render);
   deviceSelect.addEventListener('change', render);
+=======
+  // Toggle QR code visibility
+  window.toggleQR = function(id) {
+    const qr = document.getElementById(id);
+    if (qr) {
+      qr.classList.toggle('show');
+    }
+  };
+>>>>>>> 428fc07 (Update index.html with new logo and design improvements)
 
+  // Dark mode toggle
   toggleTheme.addEventListener('change', () => {
     document.documentElement.setAttribute('data-theme', toggleTheme.checked ? 'dark' : 'light');
   });
 
+  // Language switcher
   langSelect.addEventListener('change', () => {
     const lang = langSelect.value;
-    document.getElementById('heroTitle').textContent =
+    document.querySelector('.hero h1').textContent =
       lang === 'ro' ? 'Descărcări Rapide pentru Case de Pariuri' :
       lang === 'de' ? 'Schnelle & sichere Buchmacher-Downloads' :
       'Fast & Secure Bookmaker Downloads';
 
-    document.getElementById('heroSub').textContent =
+    document.querySelector('.hero p').textContent =
       lang === 'ro' ? 'Selectați țara și dispozitivul, apoi instalați aplicația instant.' :
       lang === 'de' ? 'Land und Gerät wählen, App sofort installieren.' :
       'Select your country & device, then instantly install the app. QR code and copy link supported.';
   });
 
-  // Countdown Timer
+  // Countdown Timer for bonus banner
   function countdown(minutes) {
     const end = Date.now() + minutes * 60000;
     const timerEl = document.createElement('div');
@@ -95,23 +104,5 @@ function toggleQR(element) {
     }, 1000);
   }
 
-  countdown(30); // 30-minute timer
-
-  // Initialize
-  render();
-
-  // Optional: Auto-select user country
-  fetch('https://ipapi.co/json')
-    .then(res => res.json())
-    .then(data => {
-      const countryName = data.country_name;
-      const match = [...countrySelect.options].find(opt => opt.text === countryName);
-      if (match) {
-        countrySelect.value = match.value;
-        render();
-      }
-    });
-
-  // Animate on scroll support
-  if (window.AOS) AOS.init();
+  countdown(30); // 30-minute countdown
 });
