@@ -1,5 +1,4 @@
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
   const countrySelect = document.getElementById('countrySelect');
   const deviceSelect = document.getElementById('deviceSelect');
   const toggleTheme = document.getElementById('toggleTheme');
@@ -16,42 +15,44 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   function render() {
-    const cVal = countrySelect.value;
-    const dVal = deviceSelect.value;
+    if (!grid) return;
     grid.innerHTML = '';
 
-    data.forEach((item, index) => {
-      if ((cVal === 'all' || item.country === cVal) && (dVal === 'all' || item.device === dVal)) {
+    data.forEach(function (item, index) {
+      if ((countrySelect.value === 'all' || item.country === countrySelect.value) &&
+          (deviceSelect.value === 'all' || item.device === deviceSelect.value)) {
+
         const card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = \`
-          <div class="badge">\${item.country}</div>
-          <img class="logo" src="\${item.logo}" alt="\${item.name} logo" />
-          <h2>\${item.name}</h2>
-          <div class="platform">
-            <a class="btn android" href="\${item.apk}" download onclick="toggleQR('qr-\${index}')">Android</a>
-            <div class="qr" id="qr-\${index}">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=\${encodeURIComponent(item.apk)}" alt="QR code" />
-            </div>
-            <span class="copy-link" onclick="navigator.clipboard.writeText('\${item.apk}')">📋 Copy Link</span>
-          </div>
-        \`;
+        card.innerHTML = [
+          '<div class="badge">' + item.country + '</div>',
+          '<img class="logo" src="' + item.logo + '" alt="' + item.name + ' logo" />',
+          '<h2>' + item.name + '</h2>',
+          '<div class="platform">',
+          '<a class="btn android" href="' + item.apk + '" download onclick="toggleQR('qr-' + index + '')">Android</a>',
+          '<div class="qr" id="qr-' + index + '">',
+          '<img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=' + encodeURIComponent(item.apk) + '" alt="QR code" />',
+          '</div>',
+          '<span class="copy-link" onclick="navigator.clipboard.writeText('' + item.apk + '')">📋 Copy Link</span>',
+          '</div>'
+        ].join('');
         grid.appendChild(card);
       }
     });
   }
 
-  window.toggleQR = function(id) {
+  window.toggleQR = function (id) {
     const qr = document.getElementById(id);
     if (qr) qr.classList.toggle('show');
   };
 
   window.render = render;
+
   render();
 
   countrySelect.addEventListener('change', render);
   deviceSelect.addEventListener('change', render);
-  toggleTheme.addEventListener('change', () => {
+  toggleTheme.addEventListener('change', function () {
     document.documentElement.setAttribute('data-theme', toggleTheme.checked ? 'dark' : 'light');
   });
 });
