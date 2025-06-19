@@ -36,6 +36,13 @@ body {
   text-align: center;
   border-radius: 12px;
 }
+.site-logo {
+  max-width: 180px;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 #animationContainer {
   width: 100px;
   height: 100px;
@@ -125,4 +132,18 @@ footer {
   text-align: center;
   font-size: 0.9em;
   color: #888;
+}
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+    padding: 15px;
+  }
+  .filters, .toggles {
+    flex-direction: column;
+    align-items: center;
+  }
+  .btn, select {
+    width: 100%;
+    margin: 5px 0;
+  }
 }
