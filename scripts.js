@@ -49,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  window.data = data;
+  window.render = render;
+
   toggleTheme.addEventListener('change', () => {
     document.documentElement.setAttribute('data-theme', toggleTheme.checked ? 'dark' : 'light');
   });
