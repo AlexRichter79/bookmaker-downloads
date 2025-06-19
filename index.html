@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bookmaker App Downloads</title>
+  <meta name="description" content="Download bookmaker APK and iOS apps. Country-specific sportsbook installers with QR codes and one-click install. Bet365, Betano, 1xBet and more." />
+  <meta name="keywords" content="bookmaker APK, download sportsbook app, bet365 android, betano iOS, UK betting apps, Romania bookmaker, sportsbook install QR" />
+  <meta name="author" content="AlexRichter79" />
+  <title>Download Bookmaker Apps - Fast APK & iOS Installs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js"></script>
   <style>
     :root {
       --bg: #f9f9f9;
@@ -17,48 +22,43 @@
       --card-bg: #1c1c1c;
       --text: #eee;
     }
+    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg); color: var(--text);
       transition: background 0.3s, color 0.3s;
     }
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 30px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+    .container { max-width: 1100px; margin: auto; padding: 30px; }
     .theme-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+      position: fixed;
+      top: 10px; right: 20px;
+      z-index: 1000;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0c0d5b, #0a6472);
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    #animationContainer {
+      width: 100px; height: 100px;
+      margin: 0 auto 20px;
     }
     .filters {
       display: flex;
       justify-content: center;
       gap: 20px;
       flex-wrap: wrap;
-      margin: 20px 0;
+      margin-bottom: 30px;
     }
     select {
-      padding: 10px;
-      font-size: 1em;
+      padding: 10px; font-size: 1em;
       border-radius: 6px;
       border: 1px solid #ccc;
-    }
-    .hero {
-      background: linear-gradient(135deg,#101e52,#095d69);
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-      border-radius: 12px;
-      margin-bottom: 30px;
     }
     .grid {
       display: flex;
@@ -75,14 +75,15 @@
       text-align: center;
       position: relative;
       transition: transform 0.2s;
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
     }
-    .card:hover {
-      transform: translateY(-5px);
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(20px); }
     }
-    .card img.logo {
-      max-width: 120px;
-      margin-bottom: 10px;
-    }
+    .card:hover { transform: scale(1.02); }
+    .card img.logo { max-width: 120px; margin-bottom: 10px; }
     .badge {
       position: absolute;
       top: 10px;
@@ -93,9 +94,6 @@
       border-radius: 999px;
       font-size: 0.75em;
     }
-    .downloads {
-      margin-top: 15px;
-    }
     .btn {
       padding: 10px 20px;
       border: none;
@@ -105,48 +103,27 @@
       cursor: pointer;
       font-weight: bold;
     }
-    .android {
-      background: var(--accent);
-    }
-    .ios {
-      background: var(--ios);
-    }
-    .qr img {
-      margin-top: 10px;
-      width: 80px;
-      height: 80px;
-    }
-    .copy-link {
-      display: block;
-      margin-top: 6px;
-      font-size: 0.9em;
-      color: #888;
-      cursor: pointer;
-    }
-    .platform {
-      margin-top: 15px;
-      padding: 10px 0;
-      border-top: 1px dashed #ccc;
-    }
-    .platform:first-child {
-      border-top: none;
-    }
-    .platform .qr img {
-      margin: 10px auto 5px;
+    .android { background: var(--accent); }
+    .ios { background: var(--ios); }
+    .platform { margin-top: 15px; padding: 10px 0; border-top: 1px dashed #ccc; }
+    .platform .qr img { width: 80px; height: 80px; margin-top: 10px; }
+    .copy-link { display: block; margin-top: 6px; font-size: 0.9em; color: #888; cursor: pointer; }
+    footer {
+      margin-top: 50px; text-align: center;
+      font-size: 0.8em; color: #888;
     }
   </style>
 </head>
 <body>
 <div class="theme-toggle">
-  <label>
-    🌗 Dark Mode: <input type="checkbox" id="toggleTheme">
-  </label>
+  <label>🌗 Dark Mode: <input type="checkbox" id="toggleTheme"></label>
 </div>
 
 <div class="container">
   <div class="hero">
-    <h2>Fast & Secure Bookmaker Downloads</h2>
-    <p>Select your country & device, then instantly install the app. QR code and copy link supported.</p>
+    <div id="animationContainer"></div>
+    <h2 class="animate__animated animate__fadeInDown">Fast & Secure Bookmaker Downloads</h2>
+    <p class="animate__animated animate__fadeInUp">Select your country & device, then instantly install the app. QR code and copy link supported.</p>
   </div>
 
   <div class="filters">
@@ -168,9 +145,14 @@
   </div>
 
   <div class="grid" id="bookmakerGrid"></div>
+  <footer>
+    Affiliate disclosure: We may receive commissions from bookmaker partners. <br>
+    This site is intended for informational and promotional purposes only.
+  </footer>
 </div>
 
 <script>
+// Bookmakers array with sample data
 const bookmakers = [
   { name: "Bet365", logo: "logos/bet365.png", countries: ["UK", "Germany"], android: "downloads/bet365.apk", ios: "downloads/bet365.ipa" },
   { name: "Coral", logo: "logos/coral.png", countries: ["UK"], android: "downloads/coral.apk", ios: null },
@@ -191,12 +173,13 @@ function renderBookmakers() {
   const grid = document.getElementById('bookmakerGrid');
   grid.innerHTML = '';
 
-  bookmakers.forEach(bm => {
+  bookmakers.forEach((bm, index) => {
     const matchCountry = country === 'all' || bm.countries.includes(country);
     const matchDevice = device === 'all' || (device === 'android' && bm.android) || (device === 'ios' && bm.ios);
     if (matchCountry && matchDevice) {
       const card = document.createElement('div');
       card.className = 'card';
+      card.style.animationDelay = `${index * 0.1}s`;
       const badge = `<div class="badge">${bm.countries.join(', ')}</div>`;
       card.innerHTML = `
         ${badge}
@@ -223,14 +206,18 @@ function renderBookmakers() {
   });
 }
 
-// Dark mode toggle
 document.getElementById('toggleTheme').addEventListener('change', (e) => {
   document.documentElement.setAttribute('data-theme', e.target.checked ? 'dark' : 'light');
 });
-
-// Filters
 ['countrySelect', 'deviceSelect'].forEach(id => {
   document.getElementById(id).addEventListener('change', renderBookmakers);
+});
+
+// Animate SVG
+const anim = lottie.loadAnimation({
+  container: document.getElementById('animationContainer'),
+  renderer: 'svg', loop: true, autoplay: true,
+  path: 'https://assets4.lottiefiles.com/private_files/lf30_q5pk6p1k.json'
 });
 
 document.addEventListener('DOMContentLoaded', renderBookmakers);
