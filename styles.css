@@ -33,22 +33,22 @@ body {
 .hero {
   background: linear-gradient(135deg,#101e52,#095d69);
   color: white;
-  padding: 20px;
+  padding: 30px 20px;
   text-align: center;
   border-radius: 12px;
   position: relative;
   overflow: hidden;
 }
 .hero h1 {
-  margin: 10px 0;
+  margin: 10px 0 5px;
   font-size: 1.8rem;
 }
 .hero p {
   font-size: 1rem;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 .site-logo {
-  max-width: 150px;
+  max-width: 220px;
   margin-bottom: 10px;
   display: block;
   margin-left: auto;
@@ -145,6 +145,8 @@ body {
 }
 .platform .qr {
   display: none;
+  text-align: center;
+  margin-top: 10px;
 }
 .platform .qr.show {
   display: block;
@@ -216,6 +218,6 @@ footer {
     font-size: 0.95rem;
   }
   .site-logo {
-    max-width: 130px;
+    max-width: 160px;
   }
 }
