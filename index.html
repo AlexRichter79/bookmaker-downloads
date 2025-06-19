@@ -4,14 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Download bookmaker APK and iOS apps. Country-specific sportsbook installers with QR codes and one-click install. Bet365, Betano, 1xBet and more." />
-  <meta name="keywords" content="bookmaker APK, download sportsbook app, bet365 android, betano iOS, UK betting apps, Romania bookmaker, sportsbook install QR" />
-  <meta name="author" content="AlexRichter79" />
-  <meta name="robots" content="index, follow" />
-  <title>Download Bookmaker Apps - Fast APK & iOS Installs</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <meta name="description" content="Download bookmaker APK and iOS apps. Country-specific sportsbook installers with QR codes and one-click install." />
+  <title>Download Bookmaker Apps</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js" defer></script>
   <script src="scripts.js" defer></script>
 </head>
 <body>
@@ -19,15 +14,8 @@
   <div class="container">
     <div class="hero">
       <img src="assets/logo-bookmaker.png" alt="Bookmaker Portal Logo" class="site-logo" />
-      <div id="animationContainer"></div>
-      <h1 id="heroTitle">Fast & Secure Bookmaker Downloads</h1>
-      <p id="heroSub">Select your country & device, then instantly install the app. QR code and copy link supported.</p>
-    </div>
-
-    <div class="install-guide">
-      <h2>📥 How to Install</h2>
-      <p><strong>Android:</strong> Download the APK and tap to install. Allow "Unknown Sources" when prompted.</p>
-      <p><strong>iOS:</strong> Download the IPA file and use tools like AltStore or Cydia Impactor to install. Trust the profile in Settings.</p>
+      <h1>Fast & Secure Bookmaker Downloads</h1>
+      <p>Select your country & device, then instantly install the app. QR code and copy link supported.</p>
     </div>
 
     <div class="control-panel">
@@ -60,7 +48,81 @@
       </div>
     </div>
 
-    <div class="grid" id="bookmakerGrid"></div>
+    <div class="grid" id="bookmakerGrid">
+      
+    <div class="card">
+      <div class="badge">UK, Germany</div>
+      <img class="logo" src="logos/365Plays.png" alt="365Plays logo" />
+      <h2>365Plays</h2>
+      <div class="platform">
+        <a class="btn android" href="downloads/365Plays.apk" download onclick="toggleQR('qr-0-android')">Android</a>
+        <div class="qr" id="qr-0-android"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=downloads/365Plays.apk" alt="QR Android"></div>
+        <span class="copy-link" onclick="navigator.clipboard.writeText('downloads/365Plays.apk')">📋 Copy Link</span>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">UK</div>
+      <img class="logo" src="logos/SkyStats.png" alt="SkyStats logo" />
+      <h2>SkyStats</h2>
+      <div class="platform">
+        <a class="btn android" href="downloads/SkyStats.apk" download onclick="toggleQR('qr-1-android')">Android</a>
+        <div class="qr" id="qr-1-android"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=downloads/SkyStats.apk" alt="QR Android"></div>
+        <span class="copy-link" onclick="navigator.clipboard.writeText('downloads/SkyStats.apk')">📋 Copy Link</span>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">UK</div>
+      <img class="logo" src="logos/CoralView.png" alt="CoralView logo" />
+      <h2>CoralView</h2>
+      <div class="platform">
+        <a class="btn android" href="downloads/CoralView.apk" download onclick="toggleQR('qr-2-android')">Android</a>
+        <div class="qr" id="qr-2-android"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=downloads/CoralView.apk" alt="QR Android"></div>
+        <span class="copy-link" onclick="navigator.clipboard.writeText('downloads/CoralView.apk')">📋 Copy Link</span>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">UK</div>
+      <img class="logo" src="logos/WillHillScores.png" alt="WillHillScores logo" />
+      <h2>WillHillScores</h2>
+      <div class="platform">
+        <a class="btn android" href="downloads/WillHillScores.apk" download onclick="toggleQR('qr-3-android')">Android</a>
+        <div class="qr" id="qr-3-android"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=downloads/WillHillScores.apk" alt="QR Android"></div>
+        <span class="copy-link" onclick="navigator.clipboard.writeText('downloads/WillHillScores.apk')">📋 Copy Link</span>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">Romania</div>
+      <img class="logo" src="logos/BetanoFlash.png" alt="BetanoFlash logo" />
+      <h2>BetanoFlash</h2>
+      <div class="platform">
+        <a class="btn android" href="downloads/BetanoFlash.apk" download onclick="toggleQR('qr-4-android')">Android</a>
+        <div class="qr" id="qr-4-android"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=downloads/BetanoFlash.apk" alt="QR Android"></div>
+        <span class="copy-link" onclick="navigator.clipboard.writeText('downloads/BetanoFlash.apk')">📋 Copy Link</span>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="badge">Germany</div>
+      <img class="logo" src="logos/1xPlay.png" alt="1xPlay logo" />
+      <h2>1xPlay</h2>
+      <div class="platform">
+        <a class="btn android" href="downloads/1xPlay.apk" download onclick="toggleQR('qr-5-android')">Android</a>
+        <div class="qr" id="qr-5-android"><img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=downloads/1xPlay.apk" alt="QR Android"></div>
+        <span class="copy-link" onclick="navigator.clipboard.writeText('downloads/1xPlay.apk')">📋 Copy Link</span>
+      </div>
+    </div>
+    
+    </div>
+
+    <div class="install-guide">
+      <h2>📥 How to Install</h2>
+      <p><strong>Android:</strong> Download the APK and tap to install. Allow "Unknown Sources" when prompted.</p>
+      <p><strong>iOS:</strong> Download the IPA file and use tools like AltStore or Cydia Impactor to install. Trust the profile in Settings.</p>
+    </div>
 
     <footer>
       Affiliate disclosure: We may receive commissions from bookmaker partners.<br>
