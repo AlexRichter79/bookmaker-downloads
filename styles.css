@@ -73,6 +73,15 @@ body {
   border-radius: 8px;
 }
 
+.site-logo-banner {
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+
 .install-guide {
   background: var(--card-bg);
   border-radius: 12px;
