@@ -61,14 +61,5 @@
   </div>
 
   <script src="scripts.js"></script>
-  <script>
-    // Fallback to ensure render is executed
-    if (typeof render === "function") {
-      console.log("Calling render from inline script...");
-      render();
-    } else {
-      console.error("render() not found — check if scripts.js is loading correctly.");
-    }
-  </script>
 </body>
 </html>
