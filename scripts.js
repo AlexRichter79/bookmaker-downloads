@@ -19,23 +19,24 @@ document.addEventListener('DOMContentLoaded', function () {
     grid.innerHTML = '';
 
     data.forEach(function (item, index) {
-      if ((countrySelect.value === 'all' || item.country === countrySelect.value) &&
-          (deviceSelect.value === 'all' || item.device === deviceSelect.value)) {
-
+      if (
+        (countrySelect.value === 'all' || item.country === countrySelect.value) &&
+        (deviceSelect.value === 'all' || item.device === deviceSelect.value)
+      ) {
         const card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = [
-          '<div class="badge">' + item.country + '</div>',
-          '<img class="logo" src="' + item.logo + '" alt="' + item.name + ' logo" />',
-          '<h2>' + item.name + '</h2>',
-          '<div class="platform">',
-          '<a class="btn android" href="' + item.apk + '" download onclick="toggleQR('qr-' + index + '')">Android</a>',
-          '<div class="qr" id="qr-' + index + '">',
-          '<img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=' + encodeURIComponent(item.apk) + '" alt="QR code" />',
-          '</div>',
-          '<span class="copy-link" onclick="navigator.clipboard.writeText('' + item.apk + '')">📋 Copy Link</span>',
-          '</div>'
-        ].join('');
+        card.innerHTML = `
+          <div class="badge">${item.country}</div>
+          <img class="logo" src="${item.logo}" alt="${item.name} logo" />
+          <h2>${item.name}</h2>
+          <div class="platform">
+            <a class="btn android" href="${item.apk}" download onclick="toggleQR('qr-${index}')">Android</a>
+            <div class="qr" id="qr-${index}">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(item.apk)}" alt="QR code" />
+            </div>
+            <span class="copy-link" onclick="navigator.clipboard.writeText('${item.apk}')">📋 Copy Link</span>
+          </div>
+        `;
         grid.appendChild(card);
       }
     });
@@ -48,11 +49,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
   window.render = render;
 
-  render();
+  render(); // Initial render
 
-  countrySelect.addEventListener('change', render);
-  deviceSelect.addEventListener('change', render);
-  toggleTheme.addEventListener('change', function () {
-    document.documentElement.setAttribute('data-theme', toggleTheme.checked ? 'dark' : 'light');
-  });
+  // Event Listeners
+  if (countrySelect) countrySelect.addEventListener('change', render);
+  if (deviceSelect) deviceSelect.addEventListener('change', render);
+  if (toggleTheme) {
+    toggleTheme.addEventListener('change', function () {
+      document.documentElement.setAttribute('data-theme', toggleTheme.checked ? 'dark' : 'light');
+    });
+  }
+  if (langSelect) {
+    langSelect.addEventListener('change', function () {
+      const lang = langSelect.value;
+      const header = document.querySelector('.hero h1');
+      const subtext = document.querySelector('.hero p');
+
+      if (header && subtext) {
+        header.textContent =
+          lang === 'ro' ? 'Descărcări Rapide pentru Case de Pariuri' :
+          lang === 'de' ? 'Schnelle & sichere Buchmacher-Downloads' :
+          'Fast & Secure Bookmaker Downloads';
+
+        subtext.textContent =
+          lang === 'ro' ? 'Selectați țara și dispozitivul, apoi instalați aplicația instant.' :
+          lang === 'de' ? 'Land und Gerät wählen, App sofort installieren.' :
+          'Select your country & device, then instantly install the app. QR code and copy link supported.';
+      }
+    });
+  }
 });
