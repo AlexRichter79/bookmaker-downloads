@@ -43,15 +43,8 @@ body {
 }
 
 .hero {
-  background: linear-gradient(135deg, #0e2a47, #0077c2);
-  color: white;
-  padding: 30px 20px; /* Reduced from 50px */
-  text-align: center;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  background: none;
+  padding: 20px 10px;
 }
 
 .hero h1 {
@@ -75,12 +68,12 @@ body {
 
 .site-logo-banner {
   width: 100%;
-  max-width: 640px;
+  max-width: 800px;
   height: auto;
+  border-radius: 12px;
   display: block;
   margin: 0 auto;
 }
-
 
 .install-guide {
   background: var(--card-bg);
