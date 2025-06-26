@@ -35,7 +35,7 @@ body {
 }
 
 .logo-wrapper {
-  height: 120px; /* Consistent logo box height */
+  height: 100px; /* Uniform logo box */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,8 +130,10 @@ body {
 
 .card img.logo {
   max-height: 80px;
-  max-width: 100%;
-object-fit: contain;
+  max-width: 80%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 .badge {
