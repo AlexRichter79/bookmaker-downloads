@@ -34,6 +34,14 @@ body {
   padding: 20px;
 }
 
+.logo-wrapper {
+  height: 120px; /* Consistent logo box height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
 .hero {
   background: linear-gradient(135deg, #0e2a47, #0077c2);
   color: white;
@@ -121,8 +129,9 @@ body {
 }
 
 .card img.logo {
-  max-width: 100px;
-  margin: 10px 0;
+  max-height: 80px;
+  max-width: 100%;
+object-fit: contain;
 }
 
 .badge {

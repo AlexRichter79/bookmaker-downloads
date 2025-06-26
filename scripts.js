@@ -30,7 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
         card.className = 'card';
         card.innerHTML = `
           <div class="badge">${item.country}</div>
-          <img class="logo" src="${item.logo}" alt="${item.name} logo" />
+      <div class="logo-wrapper">
+  <img class="logo" src="${item.logo}" alt="${item.name} logo" />
+</div>
           <h2>${item.name}</h2>
           <div class="platform">
             <a class="btn android" href="${fakeApk}" onclick="return false;">Android</a>
